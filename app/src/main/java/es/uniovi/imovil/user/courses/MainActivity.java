@@ -23,11 +23,12 @@ public class MainActivity extends ActionBarActivity {
 		ListView lvItems = (ListView) findViewById(R.id.list_view_courses);
 		String [] courses = getResources().getStringArray(R.array.courses);
 		String [] teachers = getResources().getStringArray(R.array.teachers);
-		mAdapter = new CourseAdapter(this, createCourseList(courses, teachers));
+		String [] descriptions = getResources().getStringArray(R.array.course_details);
+		mAdapter = new CourseAdapter(this, createCourseList(courses, teachers, descriptions));
 		lvItems.setAdapter(mAdapter);
 	}
 
-	private List<Course> createCourseList(String[] names, String[] teachers) {
+	private List<Course> createCourseList(String[] names, String[] teachers, String[] descriptions) {
 		
 		if (names.length != teachers.length) {
 			throw new IllegalStateException();
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
 			
 		ArrayList<Course> courses = new ArrayList<Course>(names.length);
 		for (int i = 0; i < names.length; i++) {
-			courses.add(new Course(names[i], teachers[i]));
+			courses.add(new Course(names[i], teachers[i], descriptions[i]));
 		}
 		return courses;
 	}
@@ -64,7 +65,8 @@ public class MainActivity extends ActionBarActivity {
 
 		String name = String.format(getString(R.string.default_course_format), ++mCourseCount);
 		String teacher = String.format(getString(R.string.default_teacher_format), mCourseCount);
-		Course course = new Course(name, teacher);
+		String details = String.format(getString(R.string.default_details_format), mCourseCount);
+		Course course = new Course(name, teacher, details);
 
 		mAdapter.addCourse(course);		
 	}

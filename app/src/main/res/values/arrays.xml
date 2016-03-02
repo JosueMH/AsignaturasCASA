@@ -27,4 +27,17 @@
         <item>José Ramiro Varela</item>
     </string-array>
 
+    <string-array name="course_details">
+        <item>@string/al_details</item>
+        <item>@string/calc_details</item>
+        <item>@string/inc_details</item>
+        <item>@string/fi_details</item>
+        <item>@string/prog_details</item>
+        <item>@string/stat_details</item>
+        <item>@string/wav_details</item>
+        <item>@string/fcr_details</item>
+        <item>@string/aut_details</item>
+        <item>@string/met_details</item>
+    </string-array>
+
 </resources>
