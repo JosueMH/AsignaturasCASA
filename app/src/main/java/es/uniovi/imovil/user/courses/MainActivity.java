@@ -5,7 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements CourseListFragment.Callbacks {
 
 	private CourseAdapter mAdapter = null;
 	private int mCourseCount = 0;
@@ -21,30 +21,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.course_list_single_panel);
 		
-		// Configurar la lista
-		ListView lvItems = (ListView) findViewById(R.id.list_view_courses);
-		String [] courses = getResources().getStringArray(R.array.courses);
-		String [] teachers = getResources().getStringArray(R.array.teachers);
-		String [] descriptions = getResources().getStringArray(R.array.course_details);
-		mAdapter = new CourseAdapter(this, createCourseList(courses, teachers, descriptions));
-		lvItems.setAdapter(mAdapter);
-		// Importante, hay que decirle a la lista quien implementa el manejador del evento.
-		lvItems.setOnItemClickListener(this);
-	}
 
-	private List<Course> createCourseList(String[] names, String[] teachers, String[] descriptions) {
-		
-		if (names.length != teachers.length) {
-			throw new IllegalStateException();
-		}
-			
-		ArrayList<Course> courses = new ArrayList<Course>(names.length);
-		for (int i = 0; i < names.length; i++) {
-			courses.add(new Course(names[i], teachers[i], descriptions[i]));
-		}
-		return courses;
 	}
 	
 	@Override
@@ -68,23 +47,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	}
 
 	private void addCourse() {
+		// Obtenemos el manejador de fragmentos.
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		// Accedemos al fragmento almacenado en el view fragment del layout de la actividad.
+		CourseListFragment fragment = (CourseListFragment)
+				fragmentManager.findFragmentById(R.id.course_list_frag);
 
+		//Creamos de forma genérica el curso a añadir.
 		String name = String.format(getString(R.string.default_course_format), ++mCourseCount);
 		String teacher = String.format(getString(R.string.default_teacher_format), mCourseCount);
 		String details = String.format(getString(R.string.default_details_format), mCourseCount);
 		Course course = new Course(name, teacher, details);
 
-		mAdapter.addCourse(course);		
+		// Llamamos al método del fragmento que será quien le diga al adaptador que introduzca un nuevo dato.
+		fragment.addCourse(course);
 	}
 
-	// Implementación del manejador del evento on ItemClick. Se llamará cuando la lista registre el evento.
+
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onCourseSelected(Course course) {
 		Intent intent = new Intent(this, CourseDetailsActivity.class);
-		Course course = (Course) parent.getItemAtPosition(position);
 		intent.putExtra(CourseDetailsActivity.DESCRIPTION,
 				course.getDetails());
 		startActivity(intent);
-
 	}
 }
