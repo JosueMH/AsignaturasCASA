@@ -3,31 +3,31 @@
 
     <string name="app_name">Asignaturas</string>
     <string name="action_add_course">Añadir asignatura</string>
-    
-	<string name="al">Álgebra Lineal</string>
-	<string name="calc">Cálculo</string>
-	<string name="inc">Empresa</string>
-	<string name="fi">Fundamentos de Informática</string>
-	<string name="prog">Introducción a la Programación</string>
-	<string name="stat">Estadística</string>
-	<string name="wav">Ondas y Electromagnetismo</string>
-	<string name="fcr">Fundamentos de Computadores y Redes</string>
-	<string name="aut">Autómatas y Matemáticas Discretas</string>
-	<string name="met">Metodología de la Programación</string>
 
-	<string name="al_details">Matemáticas...mejor que cálculo.</string>
-	<string name="aut_details">Va sobre grafos, árboles, máquinas de estado y gramáticas</string>
-	<string name="calc_details">La peor rama de las matemáticas...horrible, no quiero volver a hacer integrales nunca más.</string>
-	<string name="fi_details">Una pérdida de tiempo...</string>
-	<string name="fcr_details">La antesala a la arquitectura de computadores y una breve intro a redes</string>
-	<string name="inc_details">una porquería</string>
-	<string name="met_details">una asignatura chula.</string>
-	<string name="prog_details">los mejores apuntes de la carrera...</string>
-	<string name="stat_details">bueno, la mejor rama de las matemáticas.</string>
-	<string name="wav_details">ni fu ni fa</string>
+    <string name="al">Álgebra Lineal</string>
+    <string name="calc">Cálculo</string>
+    <string name="inc">Empresa</string>
+    <string name="fi">Fundamentos de Informática</string>
+    <string name="prog">Introducción a la Programación</string>
+    <string name="stat">Estadística</string>
+    <string name="wav">Ondas y Electromagnetismo</string>
+    <string name="fcr">Fundamentos de Computadores y Redes</string>
+    <string name="aut">Autómatas y Matemáticas Discretas</string>
+    <string name="met">Metodología de la Programación</string>
 
-	<string name="default_course_format">Asignatura %d</string>
-	<string name="default_teacher_format">Profesor %d</string>
-	<string name="default_details_format">Descripcion %d</string>
+    <string name="al_details">Matemáticas...mejor que cálculo.</string>
+    <string name="aut_details">Va sobre grafos, árboles, máquinas de estado y gramáticas</string>
+    <string name="calc_details">La peor rama de las matemáticas...horrible, no quiero volver a hacer integrales nunca más.</string>
+    <string name="fi_details">Una pérdida de tiempo...</string>
+    <string name="fcr_details">La antesala a la arquitectura de computadores y una breve intro a redes</string>
+    <string name="inc_details">una porquería</string>
+    <string name="met_details">una asignatura chula.</string>
+    <string name="prog_details">los mejores apuntes de la carrera...</string>
+    <string name="stat_details">bueno, la mejor rama de las matemáticas.</string>
+    <string name="wav_details">ni fu ni fa</string>
+
+    <string name="default_course_format">Asignatura %d</string>
+    <string name="default_teacher_format">Profesor %d</string>
+    <string name="default_details_format">Descripcion %d</string>
 
 </resources>

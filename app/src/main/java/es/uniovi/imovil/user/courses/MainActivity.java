@@ -3,13 +3,17 @@ package es.uniovi.imovil.user.courses;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
 	private CourseAdapter mAdapter = null;
 	private int mCourseCount = 0;
@@ -26,6 +30,8 @@ public class MainActivity extends ActionBarActivity {
 		String [] descriptions = getResources().getStringArray(R.array.course_details);
 		mAdapter = new CourseAdapter(this, createCourseList(courses, teachers, descriptions));
 		lvItems.setAdapter(mAdapter);
+		// Importante, hay que decirle a la lista quien implementa el manejador del evento.
+		lvItems.setOnItemClickListener(this);
 	}
 
 	private List<Course> createCourseList(String[] names, String[] teachers, String[] descriptions) {
@@ -69,5 +75,16 @@ public class MainActivity extends ActionBarActivity {
 		Course course = new Course(name, teacher, details);
 
 		mAdapter.addCourse(course);		
+	}
+
+	// Implementación del manejador del evento on ItemClick. Se llamará cuando la lista registre el evento.
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Intent intent = new Intent(this, CourseDetailsActivity.class);
+		Course course = (Course) parent.getItemAtPosition(position);
+		intent.putExtra(CourseDetailsActivity.DESCRIPTION,
+				course.getDetails());
+		startActivity(intent);
+
 	}
 }

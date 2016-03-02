@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="course_details">
+        <item>@string/al_details</item>
+        <item>@string/calc_details</item>
+        <item>@string/inc_details</item>
+        <item>@string/fi_details</item>
+        <item>@string/prog_details</item>
+        <item>@string/stat_details</item>
+        <item>@string/wav_details</item>
+        <item>@string/fcr_details</item>
+        <item>@string/aut_details</item>
+        <item>@string/met_details</item>
+    </string-array>
     <string-array name="courses">
         <item>@string/al</item>
         <item>@string/calc</item>
@@ -238,19 +250,30 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="action_add_course">Añadir asignatura</string>
     <string name="al">Álgebra Lineal</string>
+    <string name="al_details">Matemáticas...mejor que cálculo.</string>
     <string name="app_name">Asignaturas</string>
     <string name="aut">Autómatas y Matemáticas Discretas</string>
+    <string name="aut_details">Va sobre grafos, árboles, máquinas de estado y gramáticas</string>
     <string name="calc">Cálculo</string>
+    <string name="calc_details">La peor rama de las matemáticas...horrible, no quiero volver a hacer integrales nunca más.</string>
     <string name="default_course_format">Asignatura %d</string>
+    <string name="default_details_format">Descripcion %d</string>
     <string name="default_teacher_format">Profesor %d</string>
     <string name="fcr">Fundamentos de Computadores y Redes</string>
+    <string name="fcr_details">La antesala a la arquitectura de computadores y una breve intro a redes</string>
     <string name="fi">Fundamentos de Informática</string>
+    <string name="fi_details">Una pérdida de tiempo...</string>
     <string name="inc">Empresa</string>
+    <string name="inc_details">una porquería</string>
     <string name="met">Metodología de la Programación</string>
+    <string name="met_details">una asignatura chula.</string>
     <string name="prog">Introducción a la Programación</string>
+    <string name="prog_details">los mejores apuntes de la carrera...</string>
     <string name="stat">Estadística</string>
+    <string name="stat_details">bueno, la mejor rama de las matemáticas.</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="wav">Ondas y Electromagnetismo</string>
+    <string name="wav_details">ni fu ni fa</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
