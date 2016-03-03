@@ -20,7 +20,20 @@ public class CourseDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String description = intent.getStringExtra(DESCRIPTION);
 
-        // Cambiamos el texto del layout con la descripción obtenida.
-        ((TextView)findViewById(R.id.view_descripcion_asignatura)).setText(description);
+        // Una vez tenemos la descripción que nos mandó la actividad de la lista (en realidad, fue el fragmento a través de la actividad).
+        // Creamos el fragmento de forma dinámica y lo colgamos en el frameLayout mediante una TRANSACTION.
+        // Comprobar si Existe el contenedor del fragmento.
+        if (findViewById(R.id.course_details_fragment_container) != null) {
+            // Si estamos restaurando desde un estado previo no hacemos nada
+            if (savedInstanceState != null) {
+                return;
+            }
+            // Crear el fragmento pasándole el parámetro
+            CourseDetailsFragment fragment =
+                    CourseDetailsFragment.newInstance(description);
+            // Añadir el fragmento al contenedor 'fragment_container'
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.course_details_fragment_container, fragment).commit();
+        }
     }
 }
