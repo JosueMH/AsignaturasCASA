@@ -22,6 +22,8 @@ public class CourseListFragment extends Fragment implements
     // Este va a ser el campo en el que guardaremos la referencia a la actividad contenedora.
     private Callbacks mCallback = null;
     private CourseAdapter mAdapter = null;
+    private ArrayList<Course> lista_cursos = null;
+    private final String LISTA_CURSOS_PARCELADA = "lista_cursos_parcelada";
 
     public static CourseListFragment newInstance() {
         CourseListFragment fragment = new CourseListFragment();
@@ -32,24 +34,37 @@ public class CourseListFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        // Inflamos el layout del fragmento, ya que al contrario de la actividad, no se hace automáticamente.
         View rootView;
         rootView = inflater.inflate(R.layout.course_list_fragment,
                 container, false);
-
-        // Configurar la lista
         ListView lvItems = (ListView) rootView.findViewById(R.id.list_view_courses);
-        String [] courses = getResources().getStringArray(R.array.courses);
-        String [] teachers = getResources().getStringArray(R.array.teachers);
-        String [] descriptions = getResources().getStringArray(R.array.course_details);
-        mAdapter = new CourseAdapter(getContext(), createCourseList(courses, teachers, descriptions));
+
+        if (savedInstanceState != null) {
+        // Obtener la lista del bundle con getParcelableArrayList()
+            lista_cursos = savedInstanceState.getParcelableArrayList(LISTA_CURSOS_PARCELADA);
+        } else {
+        // Inicializar la lista por defecto (desde los recursos)
+
+            // Configurar la lista
+            String [] courses = getResources().getStringArray(R.array.courses);
+            String [] teachers = getResources().getStringArray(R.array.teachers);
+            String [] descriptions = getResources().getStringArray(R.array.course_details);
+
+            // Ahora, en vez de pasarle la lista de Courses al adaptador, lo guardamos en el fragmento, y después se lo pasamos al adaptador.
+            lista_cursos = createCourseList(courses, teachers, descriptions);
+        }
+
+        mAdapter = new CourseAdapter(getContext(), lista_cursos);
         lvItems.setAdapter(mAdapter);
+
         // Importante, hay que decirle a la lista quien implementa el manejador del evento.
         lvItems.setOnItemClickListener(this);
 
         return rootView;
     }
 
-    private List<Course> createCourseList(String[] names, String[] teachers, String[] descriptions) {
+    private ArrayList<Course> createCourseList(String[] names, String[] teachers, String[] descriptions) {
 
         if (names.length != teachers.length) {
             throw new IllegalStateException();
@@ -63,7 +78,10 @@ public class CourseListFragment extends Fragment implements
     }
 
     public void addCourse(Course course) {
-        mAdapter.addCourse(course);
+        // Ojo, ahora, no tenemos que añadir el curso a la lista del adaptador porque su lista es una referencia a la lista en el fragmento.
+        // Por tanto, solo tenemos que avisarle de que la lista cambió, para que haga cosas.
+        lista_cursos.add(course);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -90,4 +108,9 @@ public class CourseListFragment extends Fragment implements
         public void onCourseSelected(Course course);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(LISTA_CURSOS_PARCELADA, lista_cursos);
+    }
 }

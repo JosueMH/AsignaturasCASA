@@ -19,14 +19,17 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="es.uniovi.imovil.user.courses.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="es.uniovi.imovil.user.courses.CourseDetailsActivity" />
+        <activity
+            android:name="es.uniovi.imovil.user.courses.CourseDetailsActivity"
+            android:parentActivityName="es.uniovi.imovil.user.courses.MainActivity" />
     </application>
 
 </manifest>

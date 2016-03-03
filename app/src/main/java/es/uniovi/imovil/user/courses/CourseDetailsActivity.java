@@ -15,6 +15,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_details_activity);
+        // Si queremos mostrar el boton up en versiones avanzadas de android.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Accedemos al Intent que arrancó esta actividad, y de ahí cogemos la descripción.
         Intent intent = getIntent();

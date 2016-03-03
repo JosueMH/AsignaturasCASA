@@ -1,6 +1,9 @@
 package es.uniovi.imovil.user.courses;
 
-public class Course {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Course implements Parcelable {
 	
 	private String mName;
 	private String mTeacher;
@@ -30,4 +33,34 @@ public class Course {
 	public String getDetails() {
 		return mDetails;
 	}
+
+	public Course(Parcel parcel) {
+		readFromParcel(parcel);
+	}
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(mName);
+		dest.writeString(mTeacher);
+		dest.writeString(mDetails);
+	}
+	private void readFromParcel(Parcel parcel) {
+		mName = parcel.readString();
+		mTeacher = parcel.readString();
+		mDetails = parcel.readString();
+	}
+	public static final Parcelable.Creator<Course> CREATOR =
+			new Parcelable.Creator<Course>() {
+
+				public Course createFromParcel(Parcel in) {
+					return new Course(in);
+				}
+
+				public Course[] newArray(int size) {
+					return new Course[size];
+				}
+			};
 }

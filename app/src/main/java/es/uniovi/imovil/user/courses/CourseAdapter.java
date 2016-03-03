@@ -69,16 +69,5 @@ public class CourseAdapter extends BaseAdapter {
 		
 		return rowView;
 	}
-	
-	public void addCourse(Course course) {
-		
-		if (course == null) {
-			throw new IllegalArgumentException();			
-		}
-		
-		mCourses.add(course);
-		
-		// Importante: notificar que ha cambiado el dataset
-		notifyDataSetChanged();
-	}
+	// Ya no necesitamos el método addCourse(course) en el adaptador, porque los datos ahora se almacenan en el fragmento.
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 	private CourseAdapter mAdapter = null;
 	private int mCourseCount = 0;
 	private boolean mTwoPanes = false;
+	private final String CONTADOR_PARCELADO = "contador_parcelado";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,5 +89,17 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 
 		// Llamamos al método del fragmento que acabamos de implementar. (Comunicación Actividad -> Fragmento).
 		fragment.setDescription(course.getDetails());
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(CONTADOR_PARCELADO, mCourseCount);
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		mCourseCount = savedInstanceState.getInt(CONTADOR_PARCELADO);
 	}
 }
