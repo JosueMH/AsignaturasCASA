@@ -17,13 +17,16 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 
 	private CourseAdapter mAdapter = null;
 	private int mCourseCount = 0;
+	private boolean mTwoPanes = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.course_list_single_panel);
-		
+		setContentView(R.layout.main);
 
+		// Si existe el segundo fragmento, entonces es que estamos en el layout de dos fragmentos.
+		if (findViewById(R.id.course_details_fragment_container) != null)
+			mTwoPanes = true;
 	}
 	
 	@Override
@@ -66,9 +69,23 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 
 	@Override
 	public void onCourseSelected(Course course) {
-		Intent intent = new Intent(this, CourseDetailsActivity.class);
-		intent.putExtra(CourseDetailsActivity.DESCRIPTION,
-				course.getDetails());
-		startActivity(intent);
+		// Si estamos en el layout de un fragmento, lanzamos la actividad.
+		if (mTwoPanes == false) {
+			Intent intent = new Intent(this, CourseDetailsActivity.class);
+			intent.putExtra(CourseDetailsActivity.DESCRIPTION,
+					course.getDetails());
+			startActivity(intent);
+			return;
+		}
+
+		// Si no, no necesitamos una nueva actividad...el fragmento ya está en esta.
+		// Obtenemos el manejador de fragmentos.
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		// Accedemos al fragmento almacenado en el view fragment del layout de la actividad.
+		CourseDetailsFragment fragment = (CourseDetailsFragment)
+				fragmentManager.findFragmentById(R.id.course_details_frag);
+
+		// Llamamos al método del fragmento que acabamos de implementar. (Comunicación Actividad -> Fragmento).
+		fragment.setDescription(course.getDetails());
 	}
 }

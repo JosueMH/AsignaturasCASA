@@ -36,6 +36,10 @@
         "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
+        "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\course_list_details_two_pane.xml",
+        "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\src\\main\\res\\layout\\course_list_details_two_pane.xml"
+    },
+    {
         "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
         "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_layout.xml"
     },
@@ -94,6 +98,10 @@
     {
         "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\course_list_fragment.xml",
         "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\src\\main\\res\\layout\\course_list_fragment.xml"
+    },
+    {
+        "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\course_list_single_pane.xml",
+        "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\src\\main\\res\\layout\\course_list_single_pane.xml"
     },
     {
         "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item_course1.xml",
@@ -162,10 +170,6 @@
     {
         "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_list_menu_item_icon.xml"
-    },
-    {
-        "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\course_list_single_panel.xml",
-        "source": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\src\\main\\res\\layout\\course_list_single_panel.xml"
     },
     {
         "merged": "I:\\Informatica\\4_Informatica\\Informatica_Movil\\Practicas\\Proyectos_Android\\AsignaturasCASA\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",

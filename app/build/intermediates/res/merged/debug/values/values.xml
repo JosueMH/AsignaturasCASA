@@ -229,6 +229,8 @@
     <integer name="abc_max_action_buttons">2</integer>
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
+    <item name="main" type="layout">
+        @layout/course_list_single_pane</item>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
     <string name="abc_action_bar_home_subtitle_description_format">%1$s, %2$s, %3$s</string>
@@ -259,6 +261,7 @@
     <string name="default_course_format">Asignatura %d</string>
     <string name="default_details_format">Descripcion %d</string>
     <string name="default_teacher_format">Profesor %d</string>
+    <string name="details_no_one_selected">Selecciona Uno de la lista.</string>
     <string name="fcr">Fundamentos de Computadores y Redes</string>
     <string name="fcr_details">La antesala a la arquitectura de computadores y una breve intro a redes</string>
     <string name="fi">Fundamentos de Informática</string>

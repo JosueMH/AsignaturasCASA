@@ -14,6 +14,7 @@ import es.uniovi.imovil.user.courses.R;
 public class CourseDetailsFragment extends Fragment {
 
     private static final String DESCRIPTION_ARG = "description";
+    private View rootView = null;
 
     public static CourseDetailsFragment newInstance(String desc) {
         CourseDetailsFragment fragment = new CourseDetailsFragment();
@@ -32,7 +33,6 @@ public class CourseDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Primero inflamos el layout del fragmento y lo colgamos de un contenedor en el layout de la actividad.
-        View rootView;
         rootView = inflater.inflate(R.layout.course_details_fragment,
                 container, false);
 
@@ -40,10 +40,15 @@ public class CourseDetailsFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             String desc = args.getString(DESCRIPTION_ARG);
-            ((TextView)rootView.findViewById(R.id.view_descripcion_asignatura)).setText(desc);
+            setDescription(desc);
         }
 
         return rootView;
+    }
+
+    // Ahora necesitamos un método para que la Actividad se comunique con él en caso de pantalla grande.
+    public void setDescription(String details){
+        ((TextView)rootView.findViewById(R.id.view_descripcion_asignatura)).setText(details);
     }
 
     // Ojo al detalle... Para que la descripción pasara a este fragmento, tuvo que recorrer un largo camino:
