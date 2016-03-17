@@ -18,6 +18,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -32,10 +33,12 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity implements CourseListFragment.Callbacks {
 
 	private CourseAdapter mAdapter = null;
-	private int mCourseCount = 0;
+	private int mCourseCount;
 	private boolean mTwoPanes = false;
 	private final String CONTADOR_PARCELADO = "contador_parcelado";
-	private final String COURSE_CONTADOR_FILENAME = "contador.txt";
+	private final String PREFERENCES = "preferencias_contador";
+	private final String CONTADOR_PERSISTENCIA = "contador_resguardo";
+	private final int DEFAULT_CONTADOR = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 		// Si existe el segundo fragmento, entonces es que estamos en el layout de dos fragmentos.
 		if (findViewById(R.id.course_details_fragment_container) != null)
 			mTwoPanes = true;
+		else{
+			SharedPreferences prefs = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+			mCourseCount = prefs.getInt(CONTADOR_PERSISTENCIA, DEFAULT_CONTADOR);
+		}
 	}
 	
 	@Override
@@ -120,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 	}
 
 
-
-
+	@Override
+	protected void onPause() {
+		super.onPause();
+		SharedPreferences prefs = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE);
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		prefsEditor.putInt(CONTADOR_PERSISTENCIA, mCourseCount);
+		prefsEditor.commit();
+	}
 }
