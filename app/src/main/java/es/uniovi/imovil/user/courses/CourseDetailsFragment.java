@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,14 @@ import es.uniovi.imovil.user.courses.R;
 
 public class CourseDetailsFragment extends Fragment {
 
-    private static final String DESCRIPTION_ARG = "description";
+    private static final String ASIGNATURA_PARCELADA = "ASIGNATURA_PARCELADA";
     private View rootView = null;
+    private Course asignatura_actual = null;
 
-    public static CourseDetailsFragment newInstance(String desc) {
+    public static CourseDetailsFragment newInstance(Course course) {
         CourseDetailsFragment fragment = new CourseDetailsFragment();
         Bundle args = new Bundle();
-        args.putString(DESCRIPTION_ARG, desc);
+        args.putParcelable(ASIGNATURA_PARCELADA, course);
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,20 +37,34 @@ public class CourseDetailsFragment extends Fragment {
         // Primero inflamos el layout del fragmento y lo colgamos de un contenedor en el layout de la actividad.
         rootView = inflater.inflate(R.layout.course_details_fragment,
                 container, false);
-
+        // Ahora miramos a ver si estamos recuperándonos de una destrucción de la actividad debido a un evento del sistema.
+        if (savedInstanceState != null) {
+            setCourse((Course)savedInstanceState.getParcelable(ASIGNATURA_PARCELADA));
+        }
+        // Si no es ese caso, significa que el fragmento es creado dinámicamente por primera vez por la actividad.
+        else{
         // Luego recogemos los parámetros del Bundle. Con la descripción obtenida, cambiamos el contenido del textView.
-        Bundle args = getArguments();
-        if (args != null) {
-            String desc = args.getString(DESCRIPTION_ARG);
-            setDescription(desc);
+            Bundle args = getArguments();
+            if (args != null) {
+                setCourse((Course)args.getParcelable(ASIGNATURA_PARCELADA));
+            }
         }
 
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(ASIGNATURA_PARCELADA, asignatura_actual);
+        //mostramos en el monitor de android la descripcion guardada con la etiqueta de info (i).
+        Log.i("on_saved_instance", asignatura_actual.getDetails());
+    }
+
     // Ahora necesitamos un método para que la Actividad se comunique con él en caso de pantalla grande.
-    public void setDescription(String details){
-        ((TextView)rootView.findViewById(R.id.view_descripcion_asignatura)).setText(details);
+    public void setCourse(Course course){
+        asignatura_actual = course;
+        ((TextView)rootView.findViewById(R.id.view_descripcion_asignatura)).setText(asignatura_actual.getDetails());
     }
 
     // Ojo al detalle... Para que la descripción pasara a este fragmento, tuvo que recorrer un largo camino:

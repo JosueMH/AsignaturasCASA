@@ -3,7 +3,9 @@ package es.uniovi.imovil.user.courses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Course implements Parcelable {
+import java.io.Serializable;
+
+public class Course implements Parcelable, Serializable {
 	
 	private String mName;
 	private String mTeacher;

@@ -1,10 +1,25 @@
 package es.uniovi.imovil.user.courses;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 	private int mCourseCount = 0;
 	private boolean mTwoPanes = false;
 	private final String CONTADOR_PARCELADO = "contador_parcelado";
+	private final String COURSE_CONTADOR_FILENAME = "contador.txt";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 		// Si estamos en el layout de un fragmento, lanzamos la actividad.
 		if (mTwoPanes == false) {
 			Intent intent = new Intent(this, CourseDetailsActivity.class);
-			intent.putExtra(CourseDetailsActivity.DESCRIPTION,
-					course.getDetails());
+			intent.putExtra(CourseDetailsActivity.ASIGNATURA_SELECCIONADA_PARCELADA,
+					(Parcelable)course);
 			startActivity(intent);
 			return;
 		}
@@ -88,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 				fragmentManager.findFragmentById(R.id.course_details_frag);
 
 		// Llamamos al método del fragmento que acabamos de implementar. (Comunicación Actividad -> Fragmento).
-		fragment.setDescription(course.getDetails());
+		fragment.setCourse(course);
 	}
 
 	@Override
@@ -102,4 +118,8 @@ public class MainActivity extends AppCompatActivity implements CourseListFragmen
 		super.onRestoreInstanceState(savedInstanceState);
 		mCourseCount = savedInstanceState.getInt(CONTADOR_PARCELADO);
 	}
+
+
+
+
 }

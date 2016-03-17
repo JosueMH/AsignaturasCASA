@@ -11,6 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +34,7 @@ public class CourseListFragment extends Fragment implements
     private CourseAdapter mAdapter = null;
     private ArrayList<Course> lista_cursos = null;
     private final String LISTA_CURSOS_PARCELADA = "lista_cursos_parcelada";
+    private final String COURSE_LIST_FILENAME = "asignaturas.txt";
 
     public static CourseListFragment newInstance() {
         CourseListFragment fragment = new CourseListFragment();
@@ -40,20 +51,23 @@ public class CourseListFragment extends Fragment implements
                 container, false);
         ListView lvItems = (ListView) rootView.findViewById(R.id.list_view_courses);
 
+        //////////////////////////////////////RESTAURAR ESTADO/CREAR LISTA EN ARRANQUE////////////////////////////////////
         if (savedInstanceState != null) {
         // Obtener la lista del bundle con getParcelableArrayList()
             lista_cursos = savedInstanceState.getParcelableArrayList(LISTA_CURSOS_PARCELADA);
         } else {
         // Inicializar la lista por defecto (desde los recursos)
+            if(!restoreList()) {
+                // Configurar la lista
+                String[] courses = getResources().getStringArray(R.array.courses);
+                String[] teachers = getResources().getStringArray(R.array.teachers);
+                String[] descriptions = getResources().getStringArray(R.array.course_details);
 
-            // Configurar la lista
-            String [] courses = getResources().getStringArray(R.array.courses);
-            String [] teachers = getResources().getStringArray(R.array.teachers);
-            String [] descriptions = getResources().getStringArray(R.array.course_details);
-
-            // Ahora, en vez de pasarle la lista de Courses al adaptador, lo guardamos en el fragmento, y después se lo pasamos al adaptador.
-            lista_cursos = createCourseList(courses, teachers, descriptions);
+                // Ahora, en vez de pasarle la lista de Courses al adaptador, lo guardamos en el fragmento, y después se lo pasamos al adaptador.
+                lista_cursos = createCourseList(courses, teachers, descriptions);
+            }
         }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         mAdapter = new CourseAdapter(getContext(), lista_cursos);
         lvItems.setAdapter(mAdapter);
@@ -113,4 +127,50 @@ public class CourseListFragment extends Fragment implements
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(LISTA_CURSOS_PARCELADA, lista_cursos);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveList();
+    }
+
+    private void saveList () {
+        FileOutputStream file = null;
+        OutputStream buffer = null;
+        ObjectOutput output = null;
+        try {
+            file = getActivity().openFileOutput(COURSE_LIST_FILENAME, Context.MODE_PRIVATE);
+            buffer = new BufferedOutputStream(file);
+            output = new ObjectOutputStream(buffer);
+            output.writeObject(this.lista_cursos);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    private boolean restoreList () {
+        InputStream buffer = null;
+        ObjectInput input = null;
+        try {
+            buffer = new BufferedInputStream(
+                    getActivity().openFileInput(COURSE_LIST_FILENAME));
+            input = new ObjectInputStream(buffer);
+            this.lista_cursos = (ArrayList<Course>)input.readObject();
+            return true;
+        } catch (Exception ex) {
+        } finally {
+            try {
+                input.close();
+            } catch (Exception e) {
+            }
+        }
+        return false;
+    }
+
+
 }
